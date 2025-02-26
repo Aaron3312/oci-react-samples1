@@ -1,7 +1,8 @@
-          /*
+
+/*
 ## MyToDoReact version 1.0.
 ##
-## Copyright (c) 2022 Oracle, Inc.
+## Copyright (c) 2021 Oracle, Inc.
 ## Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
 */
 /*
@@ -14,7 +15,10 @@ import React, { useState, useEffect } from 'react';
 import NewItem from './NewItem';
 import API_LIST from './API';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Button, TableBody, CircularProgress } from '@mui/material';
+import StarIcon from '@mui/icons-material/Star';
+import DoneIcon from '@mui/icons-material/Done';
+import UndoIcon from '@mui/icons-material/Undo';
+import { Button, TableBody, CircularProgress, Paper, Container, Typography, Box, Fade } from '@mui/material';
 import Moment from 'react-moment';
 
 /* In this application we're using Function Components with the State Hooks
@@ -35,6 +39,8 @@ function App() {
     const [items, setItems] = useState([]);
     // In case of an error during the API call:
     const [error, setError] = useState();
+    // Para gestionar los elementos destacados (solo front-end)
+    const [starredItems, setStarredItems] = useState({});
 
     function deleteItem(deleteId) {
       // console.log("deleteItem("+deleteId+")")
@@ -55,12 +61,17 @@ function App() {
         (result) => {
           const remainingItems = items.filter(item => item.id !== deleteId);
           setItems(remainingItems);
+          // Eliminar también de los destacados
+          const newStarredItems = {...starredItems};
+          delete newStarredItems[deleteId];
+          setStarredItems(newStarredItems);
         },
         (error) => {
           setError(error);
         }
       );
     }
+
     function toggleDone(event, id, description, done) {
       event.preventDefault();
       modifyItem(id, description, done).then(
@@ -68,6 +79,7 @@ function App() {
         (error) => { setError(error); }
       );
     }
+
     function reloadOneIteam(id){
       fetch(API_LIST+"/"+id)
         .then(response => {
@@ -91,14 +103,12 @@ function App() {
             setError(error);
           });
     }
+
     function modifyItem(id, description, done) {
       // console.log("deleteItem("+deleteId+")")
       var data = {"description": description, "done": done};
       return fetch(API_LIST+"/"+id, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
         body: JSON.stringify(data)
       })
       .then(response => {
@@ -112,6 +122,20 @@ function App() {
         }
       });
     }
+
+    // Nueva función para destacar elementos (solo frontend)
+    function toggleStarItem(id) {
+      setStarredItems(prevStarred => {
+        const newStarred = {...prevStarred};
+        if (newStarred[id]) {
+          delete newStarred[id];
+        } else {
+          newStarred[id] = true;
+        }
+        return newStarred;
+      });
+    }
+
     /*
     To simulate slow network, call sleep before making API calls.
     const sleep = (milliseconds) => {
@@ -146,24 +170,21 @@ function App() {
        // this useEffect will run once
        // similar to componentDidMount()
     );
+
     function addItem(text){
       console.log("addItem("+text+")")
       setInserting(true);
       var data = {};
-      console.log(data);
       data.description = text;
       fetch(API_LIST, {
         method: 'POST',
         // We convert the React state to JSON and send it as the POST body
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data),
+        body: JSON.stringify(data)
       }).then((response) => {
         // This API doens't return a JSON document
-        console.log(response);
-        console.log();
-        console.log(response.headers.location);
+        // console.log(response);
+        // console.log();
+        // console.log(response.headers.location);
         // return response.json();
         if (response.ok) {
           return response;
@@ -183,58 +204,185 @@ function App() {
         }
       );
     }
+
+    const getItemStyle = (isStarred) => {
+      return {
+        backgroundColor: isStarred ? 'rgba(255, 215, 0, 0.15)' : 'white',
+        boxShadow: isStarred ? '0 0 5px rgba(255, 215, 0, 0.5)' : 'none',
+        transition: 'all 0.3s ease',
+        borderRadius: '8px',
+        marginBottom: '8px',
+        padding: '10px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderLeft: isStarred ? '4px solid gold' : 'none'
+      };
+    };
+
     return (
-      <div className="App">
-        <h1>MY TODO LIST</h1>
-        <NewItem addItem={addItem} isInserting={isInserting}/>
+      <Container maxWidth="md" sx={{ pt: 4 }}>
+        <Box sx={{ textAlign: 'center', mb: 4 }}>
+          <Typography variant="h3" component="h1" sx={{ 
+            fontWeight: 'bold', 
+            color: '#2c3e50',
+            mb: 1
+          }}>
+            MY TODO LIST
+          </Typography>
+          <Box sx={{ width: '80px', height: '4px', backgroundColor: '#3498db', margin: '0 auto', mb: 3 }} />
+        </Box>
+        
+        <Box sx={{ mb: 4 }}>
+          <NewItem addItem={addItem} isInserting={isInserting}/>
+        </Box>
+
         { error &&
-          <p>Error: {error.message}</p>
+          <Paper sx={{ p: 2, mb: 3, bgcolor: '#ffebee' }}>
+            <Typography color="error">Error: {error.message}</Typography>
+          </Paper>
         }
+        
         { isLoading &&
-          <CircularProgress />
+          <Box sx={{ display: 'flex', justifyContent: 'center', my: 4 }}>
+            <CircularProgress size={60} thickness={4} />
+          </Box>
         }
+        
         { !isLoading &&
-        <div id="maincontent">
-        <table id="itemlistNotDone" className="itemlist">
-          <TableBody>
-          {items.map(item => (
-            !item.done && (
-            <tr key={item.id}>
-              <td className="description">{item.description}</td>
-              { /*<td>{JSON.stringify(item, null, 2) }</td>*/ }
-              <td className="date"><Moment format="MMM Do hh:mm:ss">{item.createdAt}</Moment></td>
-              <td><Button variant="contained" className="DoneButton" onClick={(event) => toggleDone(event, item.id, item.description, !item.done)} size="small">
-                    Done
-                  </Button></td>
-            </tr>
-          )))}
-          </TableBody>
-        </table>
-        <h2 id="donelist">
-          Done items
-        </h2>
-        <table id="itemlistDone" className="itemlist">
-          <TableBody>
-          {items.map(item => (
-            item.done && (
-
-            <tr key={item.id}>
-              <td className="description">{item.description}</td>
-              <td className="date"><Moment format="MMM Do hh:mm:ss">{item.createdAt}</Moment></td>
-              <td><Button variant="contained" className="DoneButton" onClick={(event) => toggleDone(event, item.id, item.description, !item.done)} size="small">
-                    Undo
-                  </Button></td>
-              <td><Button startIcon={<DeleteIcon />} variant="contained" className="DeleteButton" onClick={() => deleteItem(item.id)} size="small">
-                    Delete
-                  </Button></td>
-            </tr>
-          )))}
-          </TableBody>
-        </table>
-        </div>
+        <Box id="maincontent">
+          <Typography variant="h5" component="h2" sx={{ 
+            mb: 2, 
+            fontWeight: 'bold',
+            color: '#2c3e50',
+            borderBottom: '2px solid #3498db',
+            paddingBottom: '8px'
+          }}>
+            Tasks To Do
+          </Typography>
+          
+          <Box sx={{ mb: 4 }}>
+            {items.filter(item => !item.done).length === 0 ? (
+              <Paper sx={{ p: 3, textAlign: 'center', bgcolor: '#f8f9fa' }}>
+                <Typography color="textSecondary">No pending tasks. Add something new!</Typography>
+              </Paper>
+            ) : (
+              items.map(item => !item.done && (
+                <Fade in={true} key={item.id} timeout={500}>
+                  <Paper sx={getItemStyle(starredItems[item.id])}>
+                    <Box sx={{ flex: 1, overflow: 'hidden' }}>
+                      <Typography sx={{ fontWeight: 500, mb: 0.5 }}>{item.description}</Typography>
+                      <Typography variant="caption" color="textSecondary">
+                        <Moment format="MMM Do HH:mm">{item.createdAt}</Moment>
+                      </Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', gap: 1 }}>
+                      <Button 
+                        variant={starredItems[item.id] ? "contained" : "outlined"} 
+                        onClick={() => toggleStarItem(item.id)} 
+                        startIcon={<StarIcon />}
+                        color={starredItems[item.id] ? "warning" : "inherit"}
+                        size="small"
+                        sx={{ minWidth: '90px' }}
+                      >
+                        {starredItems[item.id] ? "Unstar" : "Star"}
+                      </Button>
+                      <Button 
+                        variant="contained" 
+                        onClick={(event) => toggleDone(event, item.id, item.description, !item.done)} 
+                        startIcon={<DoneIcon />}
+                        color="success"
+                        size="small"
+                      >
+                        Done
+                      </Button>
+                    </Box>
+                  </Paper>
+                </Fade>
+              ))
+            )}
+          </Box>
+          
+          <Typography variant="h5" component="h2" sx={{ 
+            mb: 2, 
+            mt: 5, 
+            fontWeight: 'bold',
+            color: '#2c3e50',
+            borderBottom: '2px solid #3498db',
+            paddingBottom: '8px'
+          }}>
+            Completed Tasks
+          </Typography>
+          
+          <Box>
+            {items.filter(item => item.done).length === 0 ? (
+              <Paper sx={{ p: 3, textAlign: 'center', bgcolor: '#f8f9fa' }}>
+                <Typography color="textSecondary">No completed tasks yet.</Typography>
+              </Paper>
+            ) : (
+              items.map(item => item.done && (
+                <Fade in={true} key={item.id} timeout={500}>
+                  <Paper sx={{
+                    ...getItemStyle(starredItems[item.id]),
+                    backgroundColor: starredItems[item.id] ? 'rgba(255, 215, 0, 0.15)' : 'rgba(236, 240, 241, 0.7)',
+                    opacity: 0.85
+                  }}>
+                    <Box sx={{ flex: 1, overflow: 'hidden' }}>
+                      <Typography sx={{ 
+                        fontWeight: 400, 
+                        mb: 0.5, 
+                        textDecoration: 'line-through',
+                        color: 'text.secondary'
+                      }}>
+                        {item.description}
+                      </Typography>
+                      <Typography variant="caption" color="textSecondary">
+                        <Moment format="MMM Do HH:mm">{item.createdAt}</Moment>
+                      </Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', gap: 1 }}>
+                      <Button 
+                        variant={starredItems[item.id] ? "contained" : "outlined"} 
+                        onClick={() => toggleStarItem(item.id)} 
+                        startIcon={<StarIcon />}
+                        color={starredItems[item.id] ? "warning" : "inherit"}
+                        size="small"
+                      >
+                        {starredItems[item.id] ? "Unstar" : "Star"}
+                      </Button>
+                      <Button 
+                        variant="outlined" 
+                        onClick={(event) => toggleDone(event, item.id, item.description, !item.done)} 
+                        startIcon={<UndoIcon />}
+                        color="primary"
+                        size="small"
+                      >
+                        Undo
+                      </Button>
+                      <Button 
+                        startIcon={<DeleteIcon />} 
+                        variant="outlined" 
+                        onClick={() => deleteItem(item.id)} 
+                        color="error"
+                        size="small"
+                      >
+                        Delete
+                      </Button>
+                    </Box>
+                  </Paper>
+                </Fade>
+              ))
+            )}
+          </Box>
+        </Box>
         }
-
-      </div>
+        
+        <Box sx={{ textAlign: 'center', mt: 6, mb: 2, pt: 2, borderTop: '1px solid #eee' }}>
+          <Typography variant="body2" color="textSecondary">
+            MyToDoReact © {new Date().getFullYear()}
+          </Typography>
+        </Box>
+      </Container>
     );
 }
 export default App;

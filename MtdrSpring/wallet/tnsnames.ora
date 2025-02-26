@@ -1,0 +1,36 @@
+reacttododg246_high = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.mx-queretaro-1.oraclecloud.com))(connect_data=(service_name=gd426e8fc127a55_reacttododg246_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+reacttododg246_low = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.mx-queretaro-1.oraclecloud.com))(connect_data=(service_name=gd426e8fc127a55_reacttododg246_low.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+reacttododg246_medium = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.mx-queretaro-1.oraclecloud.com))(connect_data=(service_name=gd426e8fc127a55_reacttododg246_medium.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+reacttododg246_tp = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.mx-queretaro-1.oraclecloud.com))(connect_data=(service_name=gd426e8fc127a55_reacttododg246_tp.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+reacttododg246_tpurgent = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.mx-queretaro-1.oraclecloud.com))(connect_data=(service_name=gd426e8fc127a55_reacttododg246_tpurgent.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+
+
+reacttododwcxx_high = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.mx-queretaro-1.oraclecloud.com))(connect_data=(service_name=gd426e8fc127a55_reacttododwcxx_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+reacttododwcxx_low = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.mx-queretaro-1.oraclecloud.com))(connect_data=(service_name=gd426e8fc127a55_reacttododwcxx_low.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+reacttododwcxx_medium = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.mx-queretaro-1.oraclecloud.com))(connect_data=(service_name=gd426e8fc127a55_reacttododwcxx_medium.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+reacttododwcxx_tp = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.mx-queretaro-1.oraclecloud.com))(connect_data=(service_name=gd426e8fc127a55_reacttododwcxx_tp.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+reacttododwcxx_tpurgent = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.mx-queretaro-1.oraclecloud.com))(connect_data=(service_name=gd426e8fc127a55_reacttododwcxx_tpurgent.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+
+
+reacttodoymoni_high = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.mx-queretaro-1.oraclecloud.com))(connect_data=(service_name=gd426e8fc127a55_reacttodoymoni_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+reacttodoymoni_low = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.mx-queretaro-1.oraclecloud.com))(connect_data=(service_name=gd426e8fc127a55_reacttodoymoni_low.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+reacttodoymoni_medium = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.mx-queretaro-1.oraclecloud.com))(connect_data=(service_name=gd426e8fc127a55_reacttodoymoni_medium.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+reacttodoymoni_tp = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.mx-queretaro-1.oraclecloud.com))(connect_data=(service_name=gd426e8fc127a55_reacttodoymoni_tp.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+reacttodoymoni_tpurgent = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.mx-queretaro-1.oraclecloud.com))(connect_data=(service_name=gd426e8fc127a55_reacttodoymoni_tpurgent.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+
+
