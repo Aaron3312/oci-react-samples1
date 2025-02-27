@@ -178,7 +178,7 @@ function App() {
     }
     return (
       <div className="App">
-        <h1>MY TODO LIST</h1>
+        <h1>MY TODO LIST AOO</h1>
         <NewItem addItem={addItem} isInserting={isInserting}/>
         { error &&
           <p>Error: {error.message}</p>
