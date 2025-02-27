@@ -1,0 +1,14 @@
+/home/a01642529/reacttodo/oci-react-samples/MtdrSpring/backend/src/main/java/com/springboot/MyTodoList/controller/ToDoItemController.java
+/home/a01642529/reacttodo/oci-react-samples/MtdrSpring/backend/src/main/java/com/springboot/MyTodoList/service/ToDoItemService.java
+/home/a01642529/reacttodo/oci-react-samples/MtdrSpring/backend/src/main/java/com/springboot/MyTodoList/MyTodoListApplication.java
+/home/a01642529/reacttodo/oci-react-samples/MtdrSpring/backend/src/main/java/com/springboot/MyTodoList/util/BotCommands.java
+/home/a01642529/reacttodo/oci-react-samples/MtdrSpring/backend/src/main/java/com/springboot/MyTodoList/model/ToDoItem.java
+/home/a01642529/reacttodo/oci-react-samples/MtdrSpring/backend/src/main/java/com/springboot/MyTodoList/util/BotLabels.java
+/home/a01642529/reacttodo/oci-react-samples/MtdrSpring/backend/src/main/java/com/springboot/MyTodoList/controller/ToDoItemBotController.java
+/home/a01642529/reacttodo/oci-react-samples/MtdrSpring/backend/src/main/java/com/springboot/MyTodoList/config/DbSettings.java
+/home/a01642529/reacttodo/oci-react-samples/MtdrSpring/backend/src/main/java/com/springboot/MyTodoList/security/WebSecurityConfiguration.java
+/home/a01642529/reacttodo/oci-react-samples/MtdrSpring/backend/src/main/java/com/springboot/MyTodoList/util/BotHelper.java
+/home/a01642529/reacttodo/oci-react-samples/MtdrSpring/backend/src/main/java/com/springboot/MyTodoList/util/BotMessages.java
+/home/a01642529/reacttodo/oci-react-samples/MtdrSpring/backend/src/main/java/com/springboot/MyTodoList/config/CorsConfig.java
+/home/a01642529/reacttodo/oci-react-samples/MtdrSpring/backend/src/main/java/com/springboot/MyTodoList/config/OracleConfiguration.java
+/home/a01642529/reacttodo/oci-react-samples/MtdrSpring/backend/src/main/java/com/springboot/MyTodoList/repository/ToDoItemRepository.java
